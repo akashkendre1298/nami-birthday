@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BGMI - 679 Days Together | Happy Birthday Ñami!</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Google Fonts for BGMI Tactical & Futuristic Aesthetic -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600;700&family=Teko:wght@500;600;700&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Fullscreen Main Showroom Container -->
+  <div class="lobby-viewport" id="lobbyViewport">
+    
+    <!-- Background Scene with High-Resolution Showroom & Interactive Overlay -->
+    <div class="scene-background">
+      <img src="lobby_4k.jpg?v=2" onerror="this.src='lobby_reference.jpg'" alt="BGMI Showroom Lobby" id="bgImage" class="bg-img">
+      <div class="ambient-overlay"></div>
+      <canvas id="ambientCanvas" class="ambient-canvas"></canvas>
+    </div>
+
+    <!-- Interactive Clickable Hotspots overlay on the Showroom -->
+    <div class="hotspots-layer">
+      <!-- Left Helicopter Showcase -->
+      <button class="hotspot hotspot-heli" id="hotspotHeli" title="Click Helicopter: Air Drop Delivery">
+        <span class="hotspot-pulse"></span>
+        <span class="hotspot-tag">🚁 Airdrop Surprise</span>
+      </button>
+
+      <!-- Center Characters: SHINIGAMI & Ñami -->
+      <div class="hotspot-duo-container" id="hotspotDuo" title="Click Duo: Trigger Hearts Shower">
+        <div class="name-tag leaf-guardian">
+          <span class="ninja-icon">🍃</span> 1 Leaf Guardian
+        </div>
+        <div class="duo-click-area"></div>
+        <div class="partner-badge-interactive">
+          <span class="heart-icon">💖</span> Ñami <span class="love-text">LOVE</span>
+        </div>
+      </div>
+
+      <!-- Teal Buddies (Pets) -->
+      <button class="hotspot hotspot-pet pet-left" id="petLeft" title="Click Buddy!"></button>
+      <button class="hotspot hotspot-pet pet-right" id="petRight" title="Click Buddy!"></button>
+
+      <!-- Right Display Board & Weapon Rack: Birthday Messages to Ñami -->
+      <button class="hotspot hotspot-board" id="hotspotBoard" title="Click to Read Birthday Messages for Ñami">
+        <span class="hotspot-pulse pulse-gold"></span>
+        <span class="hotspot-tag board-tag">💌 Birthday Messages for Ñami</span>
+      </button>
+    </div>
+
+    <!-- Top Navigation / Player HUD Bar -->
+    <header class="lobby-header">
+      <!-- Left: Player Profile & Clan -->
+      <div class="player-profile-card">
+        <div class="avatar-frame">
+          <img src="lobby_reference.jpg" alt="Avatar" class="avatar-crop">
+          <span class="player-level">79</span>
+        </div>
+        <div class="player-info">
+          <div class="player-name-row">
+            <span class="gender-symbol">♂</span>
+            <span class="ign">7S ➔ SHINIGAMI</span>
+            <span class="verified-badge">✔</span>
+          </div>
+          <div class="clan-tag">7SeSPORTS ➔</div>
+          <div class="stats-mini-row">
+            <span class="stat-item">⭐ Lv. 4</span>
+            <span class="stat-item">🏆 7295</span>
+            <span class="stat-item">❤️ 12069</span>
+            <span class="stat-item">🔥 5.0</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Center: Dynamic Milestone Counter -->
+      <div class="milestone-badge" id="milestoneCounterBadge">
+        <div class="milestone-header">
+          <span class="trophy-sparkle">🏆</span>
+          <span class="milestone-title">FIRST GAME MILESTONE</span>
+          <span class="trophy-sparkle">🏆</span>
+        </div>
+        <div class="counter-display">
+          <span class="counter-num" id="daysCount">677</span>
+          <span class="counter-unit">DAYS TOGETHER</span>
+        </div>
+        <div class="live-clock" id="liveClock">677d 00h 00m 00s</div>
+      </div>
+
+      <!-- Right: Connection & Synergy (LOVE) -->
+      <div class="header-right-widgets">
+        <div class="connection-widget" id="connectionWidget">
+          <div class="connection-header">
+            <span class="conn-icon">🔗</span>
+            <span>Connection Available</span>
+          </div>
+          <div class="connection-partners">
+            <div class="partner-avatar">
+              <span class="love-mini-tag">LOVE</span>
+              <span>Ñami 💖</span>
+            </div>
+            <div class="synergy-meter">
+              <span class="synergy-val">Synergy: ∞</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Audio Music Toggle -->
+        <button class="bgm-toggle-btn" id="bgmToggleBtn" title="Toggle BGMI Celebration Music">
+          <span id="bgmIcon">🎵</span>
+          <span id="bgmText">BGM: OFF</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Bottom Action Bar / START Button -->
+    <footer class="lobby-footer">
+      <!-- Left: Room & Home info -->
+      <div class="footer-left">
+        <div class="home-badge">
+          <span class="home-icon">🏠</span>
+          <span>SHINIGAMI's Home</span>
+        </div>
+        <div class="mode-select-box">
+          <span class="mode-tag">RANKED</span>
+          <span class="mode-name">ERANGEL • DUO (SHINIGAMI & ÑAMI)</span>
+        </div>
+      </div>
+
+      <!-- Center: Giant Start Button with Birthday Popper Effect -->
+      <div class="start-button-wrapper">
+        <button class="bgmi-start-btn" id="startBtn">
+          <div class="start-btn-glow"></div>
+          <div class="start-btn-content">
+            <span class="start-icon">🎉</span>
+            <div class="start-text-group">
+              <span class="start-main-text">START MATCH</span>
+              <span class="start-sub-text">HAPPY BIRTHDAY ÑAMI! 🎂</span>
+            </div>
+          </div>
+        </button>
+      </div>
+
+      <!-- Right: Bottom Icons -->
+      <div class="footer-right-actions">
+        <button class="hud-action-btn" id="openLetterBtn" title="Read Birthday Letters">
+          <span class="btn-icon">💌</span>
+          <span class="btn-lbl">Messages</span>
+        </button>
+        <button class="hud-action-btn" id="openMemoriesBtn" title="View In-Game Memories">
+          <span class="btn-icon">📸</span>
+          <span class="btn-lbl">Memories</span>
+        </button>
+        <button class="hud-action-btn" id="openEmoteBtn" title="Trigger Emote">
+          <span class="btn-icon">💃</span>
+          <span class="btn-lbl">Emote</span>
+        </button>
+      </div>
+    </footer>
+
+    <!-- Birthday Popper Bombs & Fireworks Canvas Overlay -->
+    <canvas id="popperCanvas" class="popper-canvas"></canvas>
+
+    <!-- Fullscreen Falling Hearts Shower Canvas Overlay -->
+    <canvas id="heartsCanvas" class="hearts-canvas"></canvas>
+
+    <!-- START MATCH / BIRTHDAY POPPER MODAL BANNER -->
+    <div class="celebration-overlay" id="celebrationOverlay">
+      <div class="celebration-content">
+        <div class="popper-burst-icon popper-left">🎉</div>
+        <div class="popper-burst-icon popper-right">🎉</div>
+        <div class="chicken-dinner-banner">WINNER WINNER CHICKEN DINNER!</div>
+        <h1 class="celebration-title">HAPPY BIRTHDAY ÑAMI! 🎂✨</h1>
+        <div class="celebration-subtitle">
+          Celebrating <strong><span class="dynamic-days-count">677</span> Days</strong> of Love, Clutches, and Endless Smiles with <strong>SHINIGAMI</strong>
+        </div>
+        <div class="celebration-badges">
+          <span class="c-badge">👑 Leaf Guardian</span>
+          <span class="c-badge">💖 Forever Love Partner</span>
+          <span class="c-badge">🍗 Infinite Dinners</span>
+          <span class="c-badge">🛡️ Never Left Behind</span>
+        </div>
+        <button class="celebration-close-btn" id="closeCelebrationBtn">ENTER CELEBRATION SHOWROOM ➔</button>
+      </div>
+    </div>
+
+    <!-- MODAL: Birthday Messages for Ñami (Shinigami, Joisha, Prashant) -->
+    <div class="custom-modal" id="messagesModal">
+      <div class="modal-backdrop" id="messagesBackdrop"></div>
+      <div class="modal-container tactical-panel">
+        <div class="panel-header">
+          <div class="panel-title-group">
+            <span class="terminal-dot"></span>
+            <h2>BIRTHDAY MESSAGES FOR ÑAMI 💌</h2>
+            <span class="day-tag">Day <span class="dynamic-days-count">677</span> of Our Journey</span>
+          </div>
+          <button class="close-modal-btn" id="closeMessagesBtn">&times;</button>
+        </div>
+
+        <!-- Sender Tabs -->
+        <div class="message-tabs">
+          <button class="msg-tab active" data-tab="shinigami">💌 From Shinigami</button>
+          <button class="msg-tab" data-tab="joisha">🌸 From Joisha</button>
+          <button class="msg-tab" data-tab="prashant">🎮 From Prashant</button>
+          <button class="msg-tab" data-tab="addnote">✍️ Add A Note</button>
+        </div>
+
+        <div class="messages-body">
+          <!-- TAB 1: SHINIGAMI -->
+          <div class="tab-content active" id="tab-shinigami">
+            <div class="letter-hero">
+              <div class="letter-stamp">
+                <span class="stamp-love">LOVE</span>
+                <span class="stamp-date"><span class="dynamic-days-count">677</span> DAYS</span>
+              </div>
+              <h3>To My Favorite Teammate & The Love of My Life, Ñami 🍃💖</h3>
+              <p class="letter-main-text">
+                "It has been exactly <strong><span class="dynamic-days-count">677</span> days</strong> since we dropped into our very first game together. From running from the blue zone with half health to clutching impossible 2v4s, you've been my favorite part of every match and every single day.
+                <br><br>
+                On your birthday, I want to celebrate not just another year of you being wonderful, but every single laugh, every airdrop we chased, every <em>'revive me I'm behind the rock!'</em> moment, and every chicken dinner we shared. 
+                <br><br>
+                No matter what game or lobby life takes us to, I'll always have your back with a Level 3 helmet, a full medkit, and all my love. Happy Birthday, my Leaf Guardian! 🎂💖✨"
+              </p>
+              <div class="letter-signature">
+                — Forever yours,<br>
+                <strong class="sig-name">7S ➔ SHINIGAMI</strong>
+              </div>
+            </div>
+
+            <!-- Memory Cards Grid -->
+            <h4 class="section-title">⭐ SPECIAL MILESTONES & PROMISES</h4>
+            <div class="memory-cards-grid">
+              <div class="memory-card">
+                <div class="card-icon">🎯</div>
+                <div class="card-title">Day 1: The First Drop</div>
+                <div class="card-desc">Where it all started <span class="dynamic-days-count">677</span> days ago. Two random lobby players who ended up becoming an inseparable bond.</div>
+              </div>
+              <div class="memory-card">
+                <div class="card-icon">🪂</div>
+                <div class="card-title">The Airdrop Rule</div>
+                <div class="card-desc">The golden AWM, the Groza, and the Level 3 vest are always yours first. Priority is guaranteed for life!</div>
+              </div>
+              <div class="memory-card">
+                <div class="card-icon">🛡️</div>
+                <div class="card-title">100% Revive Guarantee</div>
+                <div class="card-desc">Even if a full squad is camping the smoke, Shinigami will always rush in with a smoke grenade to get you up.</div>
+              </div>
+              <div class="memory-card">
+                <div class="card-icon">🎂</div>
+                <div class="card-title">Birthday Wish</div>
+                <div class="card-desc">May this year bring you endless smiles, pure happiness, good health, and many more Chicken Dinners together!</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB 2: JOISHA -->
+          <div class="tab-content" id="tab-joisha">
+            <div class="letter-hero friend-letter-hero joisha-theme">
+              <div class="letter-stamp">
+                <span class="stamp-friend">🌸 BESTIE</span>
+                <span class="stamp-date">BIRTHDAY</span>
+              </div>
+              <h3>To My Most Amazing Friend, Ñami! 🎉🌸</h3>
+              <p class="letter-main-text">
+                "I just wanna say ‘Thank you’ for being most amazing friend🥰
+                <br><br>
+                Thankyou for listening to my crazy stories & to random rants…lending your shoulders when ever needed😇🤗
+                <br><br>
+                We never planned this friendship, the universe just knew I needed someone crazy af bitch like you to make my life better & beautiful..❤️❤️
+                <br><br>
+                <strong>P.S</strong> - Silly pictures & Crazy times, sisters at heart and partners in crime❤️
+                <br><br>
+                Love you Bitch❤️🤗
+                <br>
+                Wishing you a Cr@zy happiest birthday🎂🎊"
+              </p>
+              <div class="letter-signature">
+                — Forever sisters at heart,<br>
+                <strong class="sig-name sig-joisha">🌸 Joisha</strong>
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB 3: PRASHANT -->
+          <div class="tab-content" id="tab-prashant">
+            <div class="letter-hero friend-letter-hero prashant-theme">
+              <div class="letter-stamp">
+                <span class="stamp-squad">🔥 SQUAD</span>
+                <span class="stamp-date">PRO CLUTCH</span>
+              </div>
+              <h3>Ayo Ñami! Wishing You A Legendary Birthday! 🍗🎮</h3>
+              <p class="letter-main-text">
+                "Happy Birthday to the most pro Leaf Guardian in the lobby! 💥🎂
+                <br><br>
+                <span class="dynamic-days-count">677</span> days since that first match is crazy—you guys are literally the most cracked and wholesome duo out there. Thank you for always bringing the good vibes to the squad, clutching when it matters, and tolerating Shinigami's crazy driving in the buggy! 😂
+                <br><br>
+                May your birthday be filled with endless Chicken Dinners, zero recoil, tier-1 airdrop loot, and maximum happiness. Have a blast today! 🚀🔥"
+              </p>
+              <div class="letter-signature">
+                — Cheers & GGWP,<br>
+                <strong class="sig-name sig-prashant">🎮 Prashant</strong>
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB 4: ADD A NOTE -->
+          <div class="tab-content" id="tab-addnote">
+            <div class="add-note-box">
+              <h4>✍️ Leave a Special Birthday Wish for Ñami</h4>
+              <div class="note-input-row">
+                <input type="text" id="customNoteInput" placeholder="Write a memory or sweet wish..." maxlength="150">
+                <button id="addNoteBtn">POST NOTE</button>
+              </div>
+              <div class="custom-notes-list" id="customNotesList"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL: Dedicated Memories Gallery with Placeholders of Ñami -->
+    <div class="custom-modal" id="memoriesModal">
+      <div class="modal-backdrop" id="memoriesBackdrop"></div>
+      <div class="modal-container tactical-panel memories-panel">
+        <div class="panel-header">
+          <div class="panel-title-group">
+            <span class="terminal-dot"></span>
+            <h2>MEMORIES OF ÑAMI 📸</h2>
+            <span class="day-tag"><span class="dynamic-days-count">677</span> Days Photo Album</span>
+          </div>
+          <button class="close-modal-btn" id="closeMemoriesBtn">&times;</button>
+        </div>
+        <div class="memories-body">
+          <div class="memories-intro-bar">
+            <span>✨ <span class="dynamic-days-count">677</span> Days of Cherished Moments & Beautiful Memories</span>
+            <small class="tip-text">🔍 Tap any photo to view full size</small>
+          </div>
+
+          <div class="photo-cards-grid">
+            <!-- Photo Card 1 -->
+            <div class="polaroid-card" data-index="0" role="button" tabindex="0" title="Tap to view full size">
+              <div class="photo-wrapper">
+                <img src="memory1.jpg" onerror="this.src='lobby_reference.jpg'" alt="A Happier Version of Me" class="polaroid-img">
+                <span class="photo-badge">Moments 🌿</span>
+                <span class="photo-zoom-hint">🔍 Expand</span>
+              </div>
+              <div class="polaroid-caption">
+                <strong>A Happier Version of Me</strong>
+                <p>Waterfalls, green trails, and pure carefree happiness.</p>
+              </div>
+            </div>
+
+            <!-- Photo Card 2 -->
+            <div class="polaroid-card" data-index="1" role="button" tabindex="0" title="Tap to view full size">
+              <div class="photo-wrapper">
+                <img src="memory2.jpg" onerror="this.src='lobby_reference.jpg'" alt="Moments That Make Me Me" class="polaroid-img">
+                <span class="photo-badge">Golden Hour 🌅</span>
+                <span class="photo-zoom-hint">🔍 Expand</span>
+              </div>
+              <div class="polaroid-caption">
+                <strong>Moments That Make Me Me</strong>
+                <p>Golden sunset skies and warm, unforgettable memories.</p>
+              </div>
+            </div>
+
+            <!-- Photo Card 3 -->
+            <div class="polaroid-card" data-index="2" role="button" tabindex="0" title="Tap to view full size">
+              <div class="photo-wrapper">
+                <img src="memory3.jpg" onerror="this.src='lobby_reference.jpg'" alt="Grace in Turquoise" class="polaroid-img">
+                <span class="photo-badge">Elegance 🥻</span>
+                <span class="photo-zoom-hint">🔍 Expand</span>
+              </div>
+              <div class="polaroid-caption">
+                <strong>Grace in Turquoise</strong>
+                <p>Traditional, breathtaking, and radiating pure beauty.</p>
+              </div>
+            </div>
+
+            <!-- Photo Card 4 -->
+            <div class="polaroid-card" data-index="3" role="button" tabindex="0" title="Tap to view full size">
+              <div class="photo-wrapper">
+                <img src="memory4.jpg" onerror="this.src='lobby_reference.jpg'" alt="Garden Bloom" class="polaroid-img">
+                <span class="photo-badge">Sunshine 🌸</span>
+                <span class="photo-zoom-hint">🔍 Expand</span>
+              </div>
+              <div class="polaroid-caption">
+                <strong>Garden Bloom</strong>
+                <p>Peaceful moments surrounded by flowers and sunny days.</p>
+              </div>
+            </div>
+
+            <!-- Photo Card 5 -->
+            <div class="polaroid-card" data-index="4" role="button" tabindex="0" title="Tap to view full size">
+              <div class="photo-wrapper">
+                <img src="memory5.jpg" onerror="this.src='lobby_reference.jpg'" alt="Chic & Casual" class="polaroid-img">
+                <span class="photo-badge">Style ✨</span>
+                <span class="photo-zoom-hint">🔍 Expand</span>
+              </div>
+              <div class="polaroid-caption">
+                <strong>Chic & Casual</strong>
+                <p>Effortlessly fashionable on shopping day.</p>
+              </div>
+            </div>
+
+            <!-- Photo Card 6 -->
+            <div class="polaroid-card" data-index="5" role="button" tabindex="0" title="Tap to view full size">
+              <div class="photo-wrapper">
+                <img src="memory6.jpg" onerror="this.src='lobby_reference.jpg'" alt="Sweet Smiles & Besties" class="polaroid-img">
+                <span class="photo-badge">Friendship 💕</span>
+                <span class="photo-zoom-hint">🔍 Expand</span>
+              </div>
+              <div class="polaroid-caption">
+                <strong>Sweet Smiles & Besties</strong>
+                <p>Bright smiles and joyful moments with best friends.</p>
+              </div>
+            </div>
+
+            <!-- Photo Card 7 -->
+            <div class="polaroid-card" data-index="6" role="button" tabindex="0" title="Tap to view full size">
+              <div class="photo-wrapper">
+                <img src="memory7.jpg" onerror="this.src='lobby_reference.jpg'" alt="Sweetest Hugs" class="polaroid-img">
+                <span class="photo-badge">Timeless 🤍</span>
+                <span class="photo-zoom-hint">🔍 Expand</span>
+              </div>
+              <div class="polaroid-caption">
+                <strong>Sweetest Hugs</strong>
+                <p>Unconditional warmth and memories kept forever.</p>
+              </div>
+            </div>
+
+            <!-- Photo Card 8 -->
+            <div class="polaroid-card" data-index="7" role="button" tabindex="0" title="Tap to view full size">
+              <div class="photo-wrapper">
+                <img src="memory8.jpg" onerror="this.src='lobby_reference.jpg'" alt="Mall Days & Smiles" class="polaroid-img">
+                <span class="photo-badge">Fun Times 🛍️</span>
+                <span class="photo-zoom-hint">🔍 Expand</span>
+              </div>
+              <div class="polaroid-caption">
+                <strong>Mall Days & Smiles</strong>
+                <p>Laughter, shopping runs, and cherished memories.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL: Helicopter Airdrop Surprise -->
+    <div class="custom-modal" id="airdropModal">
+      <div class="modal-backdrop" id="airdropBackdrop"></div>
+      <div class="modal-container tactical-panel airdrop-panel">
+        <div class="panel-header">
+          <div class="panel-title-group">
+            <span class="crate-icon">📦</span>
+            <h2>SPECIAL AIRDROP DELIVERED!</h2>
+          </div>
+          <button class="close-modal-btn" id="closeAirdropBtn">&times;</button>
+        </div>
+        <div class="airdrop-body">
+          <div class="airdrop-box-visual">
+            <div class="crate-smoke"></div>
+            <div class="crate-box">
+              <div class="crate-tarp"></div>
+              <div class="crate-base"></div>
+            </div>
+          </div>
+          <h3>Special Delivery for Ñami!</h3>
+          <p>The Showroom Helicopter just dropped a customized Birthday Crate containing:</p>
+          <ul class="airdrop-loot-list">
+            <li>✨ <strong>1x Endless Chicken Dinners</strong> (Never expires)</li>
+            <li>💖 <strong>100% Love & Synergy Level</strong> with SHINIGAMI</li>
+            <li>🎂 <strong>A Huge Birthday Cake</strong> with <span class="dynamic-days-count">679</span> candles</li>
+            <li>🛡️ <strong>Permanent Level 3 Shield of Protection</strong></li>
+          </ul>
+          <button class="loot-claim-btn" id="claimAirdropBtn">CLAIM ALL REWARDS 🎁</button>
+        </div>
+      </div>
+    </div>
+    <!-- MODAL: Fullscreen Photo Lightbox -->
+    <div class="custom-modal photo-lightbox-modal" id="photoLightboxModal">
+      <div class="modal-backdrop" id="lightboxBackdrop"></div>
+      <div class="lightbox-viewer">
+        <button class="lightbox-close-btn" id="closeLightboxBtn" title="Close Photo Viewer">&times;</button>
+        <button class="lightbox-nav-btn prev-btn" id="prevPhotoBtn" title="Previous Photo">&#10094;</button>
+        <button class="lightbox-nav-btn next-btn" id="nextPhotoBtn" title="Next Photo">&#10095;</button>
+        <div class="lightbox-image-container">
+          <img src="memory1.jpg" alt="Memory Photo" id="lightboxImg" class="lightbox-img">
+        </div>
+        <div class="lightbox-info-bar">
+          <div class="lightbox-title-row">
+            <span class="lightbox-badge" id="lightboxBadge">Moments 🌿</span>
+            <h3 id="lightboxTitle">A Happier Version of Me</h3>
+          </div>
+          <p id="lightboxDesc">Waterfalls, green trails, and pure carefree happiness.</p>
+          <span class="lightbox-counter" id="lightboxCounter">1 / 8</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Landscape Orientation Gate Overlay -->
+    <div class="orientation-gate" id="orientationGate">
+      <div class="rotate-device-content">
+        <div class="phone-rotate-anim">
+          <div class="phone-device"></div>
+          <div class="rotate-arrow">↻</div>
+        </div>
+        <h2 class="rotate-title">PLEASE ROTATE YOUR DEVICE</h2>
+        <p class="rotate-subtitle">BGMI Showroom is designed to be experienced in <strong>Landscape Mode</strong> 🎮</p>
+        <button class="fullscreen-btn" id="rotateFullscreenBtn">TAP TO ENTER FULLSCREEN ➔</button>
+      </div>
+    </div>
+
+    <!-- Birthday Countdown Lock Screen (Unlocks 25th Sept Midnight 12:00 AM) -->
+    <div class="lock-screen-overlay" id="countdownLockScreen">
+      <div class="lock-panel tactical-panel">
+        <div class="lock-airdrop-box">
+          <div class="lock-crate">
+            <div class="crate-lock-tarp"></div>
+            <div class="lock-padlock-icon">🔒</div>
+          </div>
+        </div>
+        <div class="lock-status-badge">
+          <span class="lock-pulse-dot"></span>
+          <span>SPECIAL AIRDROP LOCKED</span>
+        </div>
+        <h1 class="lock-main-title">BIRTHDAY SURPRISE INCOMING</h1>
+        <p class="lock-target-info">
+          Prepared with love by <strong>7S ➔ SHINIGAMI</strong> for <strong>Ñami (Leaf Guardian) 🍃💖</strong>
+        </p>
+        
+        <!-- Live Countdown Timer to 25th Sept Midnight -->
+        <div class="countdown-clock-grid">
+          <div class="cd-box">
+            <span class="cd-number" id="cdDays">00</span>
+            <span class="cd-label">DAYS</span>
+          </div>
+          <span class="cd-separator">:</span>
+          <div class="cd-box">
+            <span class="cd-number" id="cdHours">00</span>
+            <span class="cd-label">HOURS</span>
+          </div>
+          <span class="cd-separator">:</span>
+          <div class="cd-box">
+            <span class="cd-number" id="cdMinutes">00</span>
+            <span class="cd-label">MINUTES</span>
+          </div>
+          <span class="cd-separator">:</span>
+          <div class="cd-box">
+            <span class="cd-number" id="cdSeconds">00</span>
+            <span class="cd-label">SECONDS</span>
+          </div>
+        </div>
+
+        <div class="lock-unlock-tag">
+          <span>⏰ UNLOCKS: <strong>25TH SEPTEMBER • 12:00 AM MIDNIGHT</strong></span>
+        </div>
+        
+        <div class="lock-milestone-hint">
+          <span>🏆 Milestone: Today marks <strong><span class="dynamic-days-count">677</span> Days</strong> since our first game!</span>
+        </div>
+
+        <!-- Shinigami Early Preview Bypass -->
+        <div class="preview-bypass-wrapper">
+          <button class="bypass-key-btn" id="bypassBtn">
+            <span>🔑</span> Shinigami Preview Mode
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
