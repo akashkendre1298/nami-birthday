@@ -187,15 +187,16 @@ document.addEventListener('DOMContentLoaded', () => {
   const cdHours = document.getElementById('cdHours');
   const cdMinutes = document.getElementById('cdMinutes');
   const cdSeconds = document.getElementById('cdSeconds');
-  const bypassBtn = document.getElementById('bypassBtn');
+
+  // Clear any existing preview bypass flag so lock is strictly enforced
+  sessionStorage.removeItem('shinigami_preview');
 
   let isUnlocked = false;
 
   function checkUnlockStatus() {
-    const isBypassed = sessionStorage.getItem('shinigami_preview') === 'true';
     const isTimeReached = new Date() >= unlockDate;
 
-    if ((isTimeReached || isBypassed) && !isUnlocked) {
+    if (isTimeReached && !isUnlocked) {
       isUnlocked = true;
       if (countdownLockScreen) {
         countdownLockScreen.classList.add('unlocked');
@@ -209,7 +210,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function updateClock() {
     const current = new Date();
 
-    // 1. Update Header Milestone Counter (Dynamic: 677 today, 679 on 25th Sept, 680...)
+    // 1. Update Header Milestone Counter (Dynamic: 677 on 23rd, 678 on 24th, 679 on 25th Sept...)
     const elapsedDiff = current - startDate;
     const days = Math.floor(elapsedDiff / (1000 * 60 * 60 * 24));
     const hours = Math.floor((elapsedDiff / (1000 * 60 * 60)) % 24);
@@ -237,11 +238,16 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    // 2. Update Countdown Timer to 25th Sept Midnight
+    // 2. Update Countdown Timer to 25th Sept Midnight (Unlocks ONLY when timer hits 0)
     const remainingDiff = unlockDate - current;
 
     if (remainingDiff <= 0) {
-      // Birthday Arrival! Auto-unlock
+      if (cdDays) cdDays.innerText = '00';
+      if (cdHours) cdHours.innerText = '00';
+      if (cdMinutes) cdMinutes.innerText = '00';
+      if (cdSeconds) cdSeconds.innerText = '00';
+
+      // Countdown Reached 0: Trigger celebration fanfare & dissolve lock screen
       if (!isUnlocked) {
         checkUnlockStatus();
         triggerPartyPoppers();
@@ -257,16 +263,6 @@ document.addEventListener('DOMContentLoaded', () => {
       if (cdMinutes) cdMinutes.innerText = pad(cdM);
       if (cdSeconds) cdSeconds.innerText = pad(cdS);
     }
-  }
-
-  // Shinigami Preview Mode Toggle
-  if (bypassBtn) {
-    bypassBtn.addEventListener('click', () => {
-      playUiClick();
-      sessionStorage.setItem('shinigami_preview', 'true');
-      checkUnlockStatus();
-      triggerPartyPoppers();
-    });
   }
 
   checkUnlockStatus();

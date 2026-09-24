@@ -17,7 +17,7 @@
     
     <!-- Background Scene with High-Resolution Showroom & Interactive Overlay -->
     <div class="scene-background">
-      <img src="lobby_4k.jpg?v=2" onerror="this.src='lobby_reference.jpg'" alt="BGMI Showroom Lobby" id="bgImage" class="bg-img">
+      <img src="lobby_4k.jpg" onerror="this.onerror=null; this.src='lobby_reference.jpg'" alt="BGMI Showroom Lobby" id="bgImage" class="bg-img">
       <div class="ambient-overlay"></div>
       <canvas id="ambientCanvas" class="ambient-canvas"></canvas>
     </div>
@@ -343,7 +343,7 @@
             <!-- Photo Card 1 -->
             <div class="polaroid-card" data-index="0" role="button" tabindex="0" title="Tap to view full size">
               <div class="photo-wrapper">
-                <img src="memory1.jpg" onerror="this.src='lobby_reference.jpg'" alt="A Happier Version of Me" class="polaroid-img">
+                <img src="memory1.jpg" onerror="this.onerror=null; this.src='lobby_reference.jpg'" alt="A Happier Version of Me" class="polaroid-img">
                 <span class="photo-badge">Moments 🌿</span>
                 <span class="photo-zoom-hint">🔍 Expand</span>
               </div>
@@ -356,7 +356,7 @@
             <!-- Photo Card 2 -->
             <div class="polaroid-card" data-index="1" role="button" tabindex="0" title="Tap to view full size">
               <div class="photo-wrapper">
-                <img src="memory2.jpg" onerror="this.src='lobby_reference.jpg'" alt="Moments That Make Me Me" class="polaroid-img">
+                <img src="memory2.jpg" onerror="this.onerror=null; this.src='lobby_reference.jpg'" alt="Moments That Make Me Me" class="polaroid-img">
                 <span class="photo-badge">Golden Hour 🌅</span>
                 <span class="photo-zoom-hint">🔍 Expand</span>
               </div>
@@ -369,7 +369,7 @@
             <!-- Photo Card 3 -->
             <div class="polaroid-card" data-index="2" role="button" tabindex="0" title="Tap to view full size">
               <div class="photo-wrapper">
-                <img src="memory3.jpg" onerror="this.src='lobby_reference.jpg'" alt="Grace in Turquoise" class="polaroid-img">
+                <img src="memory3.jpg" onerror="this.onerror=null; this.src='lobby_reference.jpg'" alt="Grace in Turquoise" class="polaroid-img">
                 <span class="photo-badge">Elegance 🥻</span>
                 <span class="photo-zoom-hint">🔍 Expand</span>
               </div>
@@ -382,7 +382,7 @@
             <!-- Photo Card 4 -->
             <div class="polaroid-card" data-index="3" role="button" tabindex="0" title="Tap to view full size">
               <div class="photo-wrapper">
-                <img src="memory4.jpg" onerror="this.src='lobby_reference.jpg'" alt="Garden Bloom" class="polaroid-img">
+                <img src="memory4.jpg" onerror="this.onerror=null; this.src='lobby_reference.jpg'" alt="Garden Bloom" class="polaroid-img">
                 <span class="photo-badge">Sunshine 🌸</span>
                 <span class="photo-zoom-hint">🔍 Expand</span>
               </div>
@@ -395,7 +395,7 @@
             <!-- Photo Card 5 -->
             <div class="polaroid-card" data-index="4" role="button" tabindex="0" title="Tap to view full size">
               <div class="photo-wrapper">
-                <img src="memory5.jpg" onerror="this.src='lobby_reference.jpg'" alt="Chic & Casual" class="polaroid-img">
+                <img src="memory5.jpg" onerror="this.onerror=null; this.src='lobby_reference.jpg'" alt="Chic & Casual" class="polaroid-img">
                 <span class="photo-badge">Style ✨</span>
                 <span class="photo-zoom-hint">🔍 Expand</span>
               </div>
@@ -408,7 +408,7 @@
             <!-- Photo Card 6 -->
             <div class="polaroid-card" data-index="5" role="button" tabindex="0" title="Tap to view full size">
               <div class="photo-wrapper">
-                <img src="memory6.jpg" onerror="this.src='lobby_reference.jpg'" alt="Sweet Smiles & Besties" class="polaroid-img">
+                <img src="memory6.jpg" onerror="this.onerror=null; this.src='lobby_reference.jpg'" alt="Sweet Smiles & Besties" class="polaroid-img">
                 <span class="photo-badge">Friendship 💕</span>
                 <span class="photo-zoom-hint">🔍 Expand</span>
               </div>
@@ -421,7 +421,7 @@
             <!-- Photo Card 7 -->
             <div class="polaroid-card" data-index="6" role="button" tabindex="0" title="Tap to view full size">
               <div class="photo-wrapper">
-                <img src="memory7.jpg" onerror="this.src='lobby_reference.jpg'" alt="Sweetest Hugs" class="polaroid-img">
+                <img src="memory7.jpg" onerror="this.onerror=null; this.src='lobby_reference.jpg'" alt="Sweetest Hugs" class="polaroid-img">
                 <span class="photo-badge">Timeless 🤍</span>
                 <span class="photo-zoom-hint">🔍 Expand</span>
               </div>
@@ -434,7 +434,7 @@
             <!-- Photo Card 8 -->
             <div class="polaroid-card" data-index="7" role="button" tabindex="0" title="Tap to view full size">
               <div class="photo-wrapper">
-                <img src="memory8.jpg" onerror="this.src='lobby_reference.jpg'" alt="Mall Days & Smiles" class="polaroid-img">
+                <img src="memory8.jpg" onerror="this.onerror=null; this.src='lobby_reference.jpg'" alt="Mall Days & Smiles" class="polaroid-img">
                 <span class="photo-badge">Fun Times 🛍️</span>
                 <span class="photo-zoom-hint">🔍 Expand</span>
               </div>
@@ -560,13 +560,6 @@
         
         <div class="lock-milestone-hint">
           <span>🏆 Milestone: Today marks <strong><span class="dynamic-days-count">677</span> Days</strong> since our first game!</span>
-        </div>
-
-        <!-- Shinigami Early Preview Bypass -->
-        <div class="preview-bypass-wrapper">
-          <button class="bypass-key-btn" id="bypassBtn">
-            <span>🔑</span> Shinigami Preview Mode
-          </button>
         </div>
       </div>
     </div>
